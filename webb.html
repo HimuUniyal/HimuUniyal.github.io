@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Let's Vote</title>
+<style>
+    /* CSS styles */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+    }
+    #form-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    input[type="text"], input[type="number"], input[type="submit"], input[type="button"] {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    input[type="submit"], input[type="button"] {
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+    }
+    #result {
+        display: none;
+        margin-top: 20px;
+    }
+    #greeting {
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .adult {
+        background-color: #5cb85c; /* Green */
+    }
+    .minor {
+        background-color: #f0ad4e; /* Yellow */
+    }
+    .voter-logo {
+        width: 600px;
+        height: 500px;
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+    <img src="voter-logo.jpg" alt="Voter Logo" class="voter-logo"> <!-- Voter logo image -->
+<div id="form-container">
+    <h2>Enter Your Details</h2>
+    <!-- Form for user input -->
+    <form id="user-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+        <input type="submit" value="Submit"> <!-- Submit button -->
+        <input type="button" value="Clear Form" id="clear-btn"> <!-- Clear form button -->
+    </form>
+    <!-- Container to display greeting message -->
+    <div id="result">
+        <h3>Greeting:</h3>
+        <p id="greeting"></p> <!-- Greeting message -->
+        
+    </div>
+</div>
+
+<script>
+// JavaScript code
+document.getElementById("user-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    var name = document.getElementById("name").value;
+    var age = parseInt(document.getElementById("age").value);
+    var greeting = document.getElementById("greeting");
+
+    if (name.trim() === '' || isNaN(age)) {
+        alert('Please fill in all the required fields!'); // Validation if fields are empty
+        return;
+    }
+
+    if (age >= 18) {
+        greeting.textContent = "Hello " + name + ", you are an adult! Don't forget to vote in the election!"; // Greeting for adults
+        greeting.className = "adult";
+    } else {
+        greeting.textContent = "Hello " + name + ", you are a minor!"; // Greeting for minors
+        greeting.className = "minor";
+    }
+
+    document.getElementById("result").style.display = "block"; // Show the result container
+});
+
+document.getElementById("clear-btn").addEventListener("click", function() {
+    document.getElementById("user-form").reset(); // Reset the form
+    document.getElementById("result").style.display = "none"; // Hide the result container
+});
+</script>
+</body>
+</html>
